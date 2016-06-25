@@ -1,4 +1,4 @@
-#include "TLink.h"
+ï»¿#include "TLink.h"
 
 TLink::TLink(const char *s, TLink *pN, TLink *pD):pNext(pN),pDown(pD)
 {
@@ -15,7 +15,7 @@ void TLink::InitMem(int size)
 	MemHeader.pFree = MemHeader.pFirst;
 	MemHeader.pLast = MemHeader.pFirst + (size - 1);
 	TLink *tmp = MemHeader.pFirst;
-	for (int i = 0; i < size - 1; i++, tmp++) // ðàçìåðêà ïàìÿòè
+	for (int i = 0; i < size - 1; i++, tmp++) // Ñ€Ð°Ð·Ð¼ÐµÑ€ÐºÐ° Ð¿Ð°Ð¼ÑÑ‚Ð¸
 	{
 		tmp->pNext = tmp + 1;
 	}
@@ -37,35 +37,36 @@ void TLink::operator delete(void* p)
 	MemHeader.pFree = tmp;
 }
 
-void TLink::MemClean(TText &txt)
+void TLink::MemClean(TText &txt, int &count)
 {
+	string st, st1;
+	count = 0;
 	for (txt.Reset(); !txt.IsTextEnded(); txt.GoNext())
 	{
-		string tmp = "$$$";
-		tmp += txt.GetLine();
-		txt.SetLine(tmp.c_str());
+		if (st.find("$$$") != 0)
+		{
+			st = txt.GetLine();
+			st1 = "$$$";
+			st1 += txt.GetLine();
+			txt.SetLine(st1);
+		}
 	}
-	string tmp_s = "$$$";
-	tmp_s += txt.GetLine();
-	txt.SetLine(tmp_s.c_str());
-	TLink *tmp = MemHeader.pFree;
-	while (tmp != NULL)
+	TLink* pLink = MemHeader.pFree;
+	for (  ; pLink != NULL; pLink = pLink->pNext)
 	{
-		for (int i = 0; i < 3; i++)
-			tmp->str[i] = '$';
-		tmp->str[3] = '\0';
-		tmp = tmp->pNext;
+		strcpy(pLink->str, "$$$");
 	}
-	tmp = MemHeader.pFirst;
-	while (true)
+	pLink = MemHeader.pFirst;
+	for (; pLink <= MemHeader.pLast; pLink++)
 	{
-		if ((tmp->str[0] == '$') && (tmp->str[1] == '$') && (tmp->str[2] == '$'))
-			strcpy(tmp->str, tmp->str + 3);
-		else
-			delete tmp;
-		if (tmp == MemHeader.pLast)
-			break;
-		tmp = tmp + 1;
+		if ( strstr(pLink->str,"$$$") != NULL )
+		{
+			strcpy(pLink->str, pLink->str+3);
+		}
+		else 
+		{ 
+			delete pLink; count++; 
+		}
 	}
 }
 
@@ -74,11 +75,11 @@ void TLink::PrintFree()
 	setlocale(LC_ALL, "Rus");
 	TLink *tmp = MemHeader.pFree;
 	if (tmp == NULL)
-		cout << "Íåò ñâîáîäíûõ çâåíüåâ" << endl;
+		cout << "ÐÐµÑ‚ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ñ‹Ñ… Ð·Ð²ÐµÐ½ÑŒÐµÐ²" << endl;
 	else
 	{
 		int c = 0;
-		cout << "Ñïèñîê ñîäåðæèìîãî ñâîáîäíûõ çâåíüåâ:" << endl;
+		cout << "Ð¡Ð¿Ð¸ÑÐ¾Ðº ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ð³Ð¾ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ñ‹Ñ… Ð·Ð²ÐµÐ½ÑŒÐµÐ²:" << endl;
 		while (tmp != NULL)
 		{
 			if (tmp->str[0] != '\0')
@@ -86,7 +87,7 @@ void TLink::PrintFree()
 			tmp = tmp->pNext;
 			c++;
 		}
-		cout << "Âñåãî - " << c << " ñâîáîäíûõ çâåíüåâ" << endl;
+		cout << "Ð’ÑÐµÐ³Ð¾ - " << c << " ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ñ‹Ñ… Ð·Ð²ÐµÐ½ÑŒÐµÐ²" << endl;
 		cout << endl;
 	}
 }

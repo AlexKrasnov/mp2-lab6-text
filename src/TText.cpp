@@ -1,4 +1,4 @@
-#include "TText.h"
+ï»¿#include "TText.h"
 
 TText::TText(TLink *p): path(100)
 {
@@ -212,7 +212,7 @@ TLink* TText::ReadSection(ifstream& ifs)
 	return pHead;
 }
 
-void TText::Load(string f_name)
+void TText::LoadText(string f_name)
 {
 	ifstream ifs(f_name);
 	pFirst = ReadSection(ifs);
@@ -268,12 +268,12 @@ void TText::Navigation()
 		PrintText();
 		SetLine(pCurr->str + 4);
 		cout << endl;
-		cout << "Ââåäèòå íîìåð äåéñòâèÿ:" << endl;
-		cout << "1. Ïåðåéòè íà ïåðâîå çâåíî" << endl;
-		cout << "2. Ïåðåéòè íà ñëåäóþùåå çâåíî" << endl;
-		cout << "3. Ïåðåéòè íà âëîæåííîå çâåíî" << endl;
-		cout << "4. Ïåðåéòè íà ïðåäûäóùåå çâåíî" << endl;
-		cout << "5. Âûõîä èç íàâèãàöèè" << endl;
+		cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ:" << endl;
+		cout << "1. ÐŸÐµÑ€ÐµÐ¹Ñ‚Ð¸ Ð½Ð° Ð¿ÐµÑ€Ð²Ð¾Ðµ Ð·Ð²ÐµÐ½Ð¾" << endl;
+		cout << "2. ÐŸÐµÑ€ÐµÐ¹Ñ‚Ð¸ Ð½Ð° ÑÐ»ÐµÐ´ÑƒÑŽÑ‰ÐµÐµ Ð·Ð²ÐµÐ½Ð¾" << endl;
+		cout << "3. ÐŸÐµÑ€ÐµÐ¹Ñ‚Ð¸ Ð½Ð° Ð²Ð»Ð¾Ð¶ÐµÐ½Ð½Ð¾Ðµ Ð·Ð²ÐµÐ½Ð¾" << endl;
+		cout << "4. ÐŸÐµÑ€ÐµÐ¹Ñ‚Ð¸ Ð½Ð° Ð¿Ñ€ÐµÐ´Ñ‹Ð´ÑƒÑ‰ÐµÐµ Ð·Ð²ÐµÐ½Ð¾" << endl;
+		cout << "5. Ð’Ñ‹Ñ…Ð¾Ð´ Ð¸Ð· Ð½Ð°Ð²Ð¸Ð³Ð°Ñ†Ð¸Ð¸" << endl;
 		cin >> k;
 		switch (k)
 		{
@@ -286,7 +286,7 @@ void TText::Navigation()
 		case 4: GoPrevLink();
 			break;
 		case 5: break;
-		default: cout << "Íåêîððåêòíûé ââîä! Ââåäèòå íîìåð îïåðàöèè çàíîâî." << endl;
+		default: cout << "ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ð·Ð°Ð½Ð¾Ð²Ð¾." << endl;
 		}
 	} while (k != 5);
 }

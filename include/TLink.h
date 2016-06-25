@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #define _CRT_SECURE_NO_WARNINGS
 #define MaxLen 255
@@ -20,16 +20,16 @@ class TTextMem
 class TLink
 {
 public:
-	char str[MaxLen];    // строка текста
-	TLink *pNext;        // указатель на следующую строку текста
-	TLink *pDown;        // указатель на подуровень
-	static TTextMem MemHeader;   // для управления памятью
+	char str[MaxLen];    // СЃС‚СЂРѕРєР° С‚РµРєСЃС‚Р°
+	TLink *pNext;        // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ СЃС‚СЂРѕРєСѓ С‚РµРєСЃС‚Р°
+	TLink *pDown;        // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРѕРґСѓСЂРѕРІРµРЅСЊ
+	static TTextMem MemHeader;   // РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ РїР°РјСЏС‚СЊСЋ
 	TLink(const char *s = NULL, TLink *pN = NULL, TLink *pD = NULL);
 	~TLink();
-	static void InitMem(int size);       // инициализация памяти 
-	void* operator new(size_t size);     // выделение звена
-	void operator delete(void *p);       // освобождение звена
-	static void MemClean(TText &txt);    // "сборщик мусора"
-	static void PrintFree();             // печать свободных звеньев
-	int isAtom();                        // проверка атомарности элемента
+	static void InitMem(int size);       // РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїР°РјСЏС‚Рё 
+	void* operator new(size_t size);     // РІС‹РґРµР»РµРЅРёРµ Р·РІРµРЅР°
+	void operator delete(void *p);       // РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ Р·РІРµРЅР°
+	static void MemClean(TText &txt, int &count);    // "СЃР±РѕСЂС‰РёРє РјСѓСЃРѕСЂР°"
+	static void PrintFree();             // РїРµС‡Р°С‚СЊ СЃРІРѕР±РѕРґРЅС‹С… Р·РІРµРЅСЊРµРІ
+	int isAtom();                        // РїСЂРѕРІРµСЂРєР° Р°С‚РѕРјР°СЂРЅРѕСЃС‚Рё СЌР»РµРјРµРЅС‚Р°
 };

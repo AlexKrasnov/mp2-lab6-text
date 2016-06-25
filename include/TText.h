@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -13,35 +13,35 @@ class TLink;
 
 class TText
 {
-	TLink *pFirst;           // первое звено списка   
-	TLink *pCurr;            // текущее звено списка
-	TStack <TLink*> path;    // стек для обхода по списку
-	TStack <TLink*> St;	     // стек для итератора
+	TLink *pFirst;           // РїРµСЂРІРѕРµ Р·РІРµРЅРѕ СЃРїРёСЃРєР°   
+	TLink *pCurr;            // С‚РµРєСѓС‰РµРµ Р·РІРµРЅРѕ СЃРїРёСЃРєР°
+	TStack <TLink*> path;    // СЃС‚РµРє РґР»СЏ РѕР±С…РѕРґР° РїРѕ СЃРїРёСЃРєСѓ
+	TStack <TLink*> St;	     // СЃС‚РµРє РґР»СЏ РёС‚РµСЂР°С‚РѕСЂР°
 public:
 	TText(TLink *p=NULL);
 	~TText() {};
-	void GoFirstLink();				// переход к первой строке
-	void GoDownLink();				// переход к следующей строке по Down
-	void GoNextLink();				// переход к следующей строке по Next
-	void GoPrevLink();				// переход к предыдущей позиции в тексте
-	void InsDownLine(string s);	    // вставка строки в подуровень
-	void InsDownSection(string s);	// вставка раздела в подуровень
-	void InsNextLine(string s);	    // вставка строки в тот же уровень
-	void InsNextSection(string s);	// вставка раздела в тот же уровень
-	void DelDownLine();			    // удалить строку в подуровне
-	void DelDownSection();			// удалить раздел в подуровне
-	void DelNextLine();			    // удалить строку в том же уровне
-	void DelNextSection();			// удалить раздел в том же уровне
-	string GetLine();				// чтение текущей строки
-	void SetLine(string s);	        // замена текущей строки
-	int Reset();					// установить на первую запись
-	int IsTextEnded() const;		// завершён текст или нет?
-	int GoNext ();					// переход к следующей записи
-	void Load(string f_name);       // загрузить новый текст
-	void SaveText(string f_name);   // сохранить текст в файл
-	void PrintText();               // напечатать текст
-	TLink* ReadSection(ifstream& ifs);  // чтение текста из файла
-    void SaveSection(TLink *ptemp, ofstream& ofs); //запись текста со звена в файл
-	void PrintSection(TLink *ptemp);    // печать текста со звена ptemp 
-	void Navigation();              // навигация по тексту
+	void GoFirstLink();				// РїРµСЂРµС…РѕРґ Рє РїРµСЂРІРѕР№ СЃС‚СЂРѕРєРµ
+	void GoDownLink();				// РїРµСЂРµС…РѕРґ Рє СЃР»РµРґСѓСЋС‰РµР№ СЃС‚СЂРѕРєРµ РїРѕ Down
+	void GoNextLink();				// РїРµСЂРµС…РѕРґ Рє СЃР»РµРґСѓСЋС‰РµР№ СЃС‚СЂРѕРєРµ РїРѕ Next
+	void GoPrevLink();				// РїРµСЂРµС…РѕРґ Рє РїСЂРµРґС‹РґСѓС‰РµР№ РїРѕР·РёС†РёРё РІ С‚РµРєСЃС‚Рµ
+	void InsDownLine(string s);	    // РІСЃС‚Р°РІРєР° СЃС‚СЂРѕРєРё РІ РїРѕРґСѓСЂРѕРІРµРЅСЊ
+	void InsDownSection(string s);	// РІСЃС‚Р°РІРєР° СЂР°Р·РґРµР»Р° РІ РїРѕРґСѓСЂРѕРІРµРЅСЊ
+	void InsNextLine(string s);	    // РІСЃС‚Р°РІРєР° СЃС‚СЂРѕРєРё РІ С‚РѕС‚ Р¶Рµ СѓСЂРѕРІРµРЅСЊ
+	void InsNextSection(string s);	// РІСЃС‚Р°РІРєР° СЂР°Р·РґРµР»Р° РІ С‚РѕС‚ Р¶Рµ СѓСЂРѕРІРµРЅСЊ
+	void DelDownLine();			    // СѓРґР°Р»РёС‚СЊ СЃС‚СЂРѕРєСѓ РІ РїРѕРґСѓСЂРѕРІРЅРµ
+	void DelDownSection();			// СѓРґР°Р»РёС‚СЊ СЂР°Р·РґРµР» РІ РїРѕРґСѓСЂРѕРІРЅРµ
+	void DelNextLine();			    // СѓРґР°Р»РёС‚СЊ СЃС‚СЂРѕРєСѓ РІ С‚РѕРј Р¶Рµ СѓСЂРѕРІРЅРµ
+	void DelNextSection();			// СѓРґР°Р»РёС‚СЊ СЂР°Р·РґРµР» РІ С‚РѕРј Р¶Рµ СѓСЂРѕРІРЅРµ
+	string GetLine();				// С‡С‚РµРЅРёРµ С‚РµРєСѓС‰РµР№ СЃС‚СЂРѕРєРё
+	void SetLine(string s);	        // Р·Р°РјРµРЅР° С‚РµРєСѓС‰РµР№ СЃС‚СЂРѕРєРё
+	int Reset();					// СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РЅР° РїРµСЂРІСѓСЋ Р·Р°РїРёСЃСЊ
+	int IsTextEnded() const;		// Р·Р°РІРµСЂС€С‘РЅ С‚РµРєСЃС‚ РёР»Рё РЅРµС‚?
+	int GoNext ();					// РїРµСЂРµС…РѕРґ Рє СЃР»РµРґСѓСЋС‰РµР№ Р·Р°РїРёСЃРё
+	void LoadText(string f_name);   // Р·Р°РіСЂСѓР·РёС‚СЊ РЅРѕРІС‹Р№ С‚РµРєСЃС‚
+	void SaveText(string f_name);   // СЃРѕС…СЂР°РЅРёС‚СЊ С‚РµРєСЃС‚ РІ С„Р°Р№Р»
+	void PrintText();               // РЅР°РїРµС‡Р°С‚Р°С‚СЊ С‚РµРєСЃС‚
+	TLink* ReadSection(ifstream& ifs);  // С‡С‚РµРЅРёРµ С‚РµРєСЃС‚Р° РёР· С„Р°Р№Р»Р°
+    void SaveSection(TLink *ptemp, ofstream& ofs); //Р·Р°РїРёСЃСЊ С‚РµРєСЃС‚Р° СЃРѕ Р·РІРµРЅР° РІ С„Р°Р№Р»
+	void PrintSection(TLink *ptemp);    // РїРµС‡Р°С‚СЊ С‚РµРєСЃС‚Р° СЃРѕ Р·РІРµРЅР° ptemp 
+	void Navigation();              // РЅР°РІРёРіР°С†РёСЏ РїРѕ С‚РµРєСЃС‚Сѓ
 };

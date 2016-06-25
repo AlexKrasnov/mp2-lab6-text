@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #define MaxSize 300
 
 template <class T>

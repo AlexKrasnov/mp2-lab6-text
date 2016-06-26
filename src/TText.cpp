@@ -13,8 +13,8 @@ TText::TText(TLink *p): path(100)
 void TText::GoFirstLink()
 {
 	if (pCurr!=NULL)
-	while (!path.empty())
-		path.pop();
+		while (!path.empty())
+			path.pop();
 	pCurr=pFirst;
 }
 
@@ -41,8 +41,8 @@ void TText::GoNextLink()
 void TText::GoPrevLink()
 {
 	if (pCurr!=NULL)
-	if (!path.empty())
-		pCurr=path.pop();
+		if (!path.empty())
+			pCurr=path.pop();
 }
 
 void TText::InsDownLine(string s)
@@ -51,8 +51,8 @@ void TText::InsDownLine(string s)
 	{
 		const string st = s;
 		TLink *tmp = new TLink(st.c_str());
-	    tmp->pNext=pCurr->pDown;
-	    pCurr->pDown=tmp;
+		tmp->pNext=pCurr->pDown;
+		pCurr->pDown=tmp;
 	}
 }
 
@@ -62,8 +62,8 @@ void TText::InsDownSection(string s)
 	{
 		const string st = s;
 		TLink *tmp = new TLink(st.c_str());
-	    tmp->pDown=pCurr->pDown;
-	    pCurr->pDown=tmp;
+		tmp->pDown=pCurr->pDown;
+		pCurr->pDown=tmp;
 	}
 }
 
@@ -73,8 +73,8 @@ void TText::InsNextLine(string s)
 	{
 		const string st = s;
 		TLink *tmp=new TLink(st.c_str());
-	    tmp->pNext=pCurr->pNext;
-	    pCurr->pNext=tmp;
+		tmp->pNext=pCurr->pNext;
+		pCurr->pNext=tmp;
 	}
 }
 
@@ -84,8 +84,8 @@ void TText::InsNextSection(string s)
 	{
 		const string st = s;
 		TLink *tmp=new TLink(st.c_str());
-	    tmp->pDown=pCurr->pNext;
-	    pCurr->pNext=tmp;
+		tmp->pDown=pCurr->pNext;
+		pCurr->pNext=tmp;
 	}
 }
 
@@ -103,12 +103,12 @@ void TText::DelDownLine()
 void TText :: DelDownSection()
 {
 	if (pCurr!=NULL)
-	if (pCurr->pDown != NULL)
-	{
-		TLink* tmp1 = pCurr->pDown;
-		TLink* tmp2 = tmp1->pNext;
-		pCurr->pDown = tmp2;
-	}
+		if (pCurr->pDown != NULL)
+		{
+			TLink* tmp1 = pCurr->pDown;
+			TLink* tmp2 = tmp1->pNext;
+			pCurr->pDown = tmp2;
+		}
 }
 
 void TText::DelNextLine()
@@ -125,12 +125,12 @@ void TText::DelNextLine()
 void TText::DelNextSection ()
 {
 	if (pCurr!=NULL)
-	if ( pCurr->pNext != NULL )
-	{
-		TLink* tmp1 = pCurr->pDown;
-		TLink* tmp2 = tmp1->pNext;
-		pCurr->pNext = tmp2;
-	}
+		if ( pCurr->pNext != NULL )
+		{
+			TLink* tmp1 = pCurr->pDown;
+			TLink* tmp2 = tmp1->pNext;
+			pCurr->pNext = tmp2;
+		}
 }
 
 string TText::GetLine()
@@ -148,7 +148,7 @@ void TText::SetLine(string _str)
 		strcpy(pCurr->str,s.c_str());
 }
 
-int TText :: Reset(void)
+int TText :: Reset()
 {
 	while (!St.empty())
 		St.pop();
@@ -166,12 +166,12 @@ int TText :: Reset(void)
 
 int TText :: IsTextEnded(void) const
 {
-	return !St.GetSize();
+	return !St.empty();
 }
 
 int TText :: GoNext(void)
 {
-	if ( !IsTextEnded() )
+	if (!IsTextEnded())
 	{
 		pCurr = St.pop();
 		if (pCurr!=pFirst)
@@ -255,38 +255,4 @@ void TText::SaveText(string f_name)
 {
 	ofstream ofs(f_name);
 	SaveSection(pFirst, ofs);
-}
-
-void TText::Navigation()
-{
-	int k;
-	do
-	{
-		string tmp = ">>> ";
-		tmp += GetLine();
-		SetLine(tmp.c_str());
-		PrintText();
-		SetLine(pCurr->str + 4);
-		cout << endl;
-		cout << "Введите номер действия:" << endl;
-		cout << "1. Перейти на первое звено" << endl;
-		cout << "2. Перейти на следующее звено" << endl;
-		cout << "3. Перейти на вложенное звено" << endl;
-		cout << "4. Перейти на предыдущее звено" << endl;
-		cout << "5. Выход из навигации" << endl;
-		cin >> k;
-		switch (k)
-		{
-		case 1: GoFirstLink();
-			break;
-		case 2: GoNextLink();
-			break;
-		case 3: GoDownLink();
-			break;
-		case 4: GoPrevLink();
-			break;
-		case 5: break;
-		default: cout << "Некорректный ввод! Введите номер операции заново." << endl;
-		}
-	} while (k != 5);
 }

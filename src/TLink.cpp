@@ -17,8 +17,10 @@ void TLink::InitMem(int size)
 	TLink *tmp = MemHeader.pFirst;
 	for (int i = 0; i < size - 1; i++, tmp++) // размерка памяти
 	{
+		tmp->str[0] = '\0';
 		tmp->pNext = tmp + 1;
 	}
+	tmp->str[0] = '\0';
 	tmp->pNext = NULL;
 }
 
@@ -39,34 +41,35 @@ void TLink::operator delete(void* p)
 
 void TLink::MemClean(TText &txt, int &count)
 {
-	string st, st1;
 	count = 0;
+	string s = "$$$";
 	for (txt.Reset(); !txt.IsTextEnded(); txt.GoNext())
 	{
-		if (st.find("$$$") != 0)
-		{
-			st = txt.GetLine();
-			st1 = "$$$";
-			st1 += txt.GetLine();
-			txt.SetLine(st1);
-		}
+		s += txt.GetLine();
+		txt.SetLine(s.c_str());
 	}
-	TLink* pLink = MemHeader.pFree;
-	for (  ; pLink != NULL; pLink = pLink->pNext)
+	txt.SetLine(s.c_str());
+	TLink *tmp = MemHeader.pFree;
+	while (tmp != NULL)
 	{
-		strcpy(pLink->str, "$$$");
+		for (int i = 0; i < 3; i++)
+			tmp->str[i] = '$';
+		tmp->str[3] = '\0';
+		tmp = tmp->pNext;
 	}
-	pLink = MemHeader.pFirst;
-	for (; pLink <= MemHeader.pLast; pLink++)
+	tmp = MemHeader.pFirst;
+	while (true)
 	{
-		if ( strstr(pLink->str,"$$$") != NULL )
+		if ((tmp->str[0] == '$') && (tmp->str[1] == '$') && (tmp->str[2] == '$'))
+			strcpy(tmp->str, tmp->str + 3);
+		else
 		{
-			strcpy(pLink->str, pLink->str+3);
+			delete tmp;
+			count++;
 		}
-		else 
-		{ 
-			delete pLink; count++; 
-		}
+		if (tmp == MemHeader.pLast)
+			break;
+		tmp = tmp + 1;
 	}
 }
 
@@ -78,17 +81,16 @@ void TLink::PrintFree()
 		cout << "Нет свободных звеньев" << endl;
 	else
 	{
-		int c = 0;
+		int count = 0;
 		cout << "Список содержимого свободных звеньев:" << endl;
 		while (tmp != NULL)
 		{
 			if (tmp->str[0] != '\0')
 				cout << tmp->str << endl;
 			tmp = tmp->pNext;
-			c++;
+			count++;
 		}
-		cout << "Всего - " << c << " свободных звеньев" << endl;
-		cout << endl;
+		cout << "Всего - " << count << " свободных звеньев" << endl;
 	}
 }
 

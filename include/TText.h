@@ -42,6 +42,5 @@ public:
 	void PrintText();               // напечатать текст
 	TLink* ReadSection(ifstream& ifs);  // чтение текста из файла
     void SaveSection(TLink *ptemp, ofstream& ofs); //запись текста со звена в файл
-	void PrintSection(TLink *ptemp);    // печать текста со звена ptemp 
-	void Navigation();              // навигация по тексту
+	void PrintSection(TLink *ptemp);    // печать текста со звена ptemp
 };

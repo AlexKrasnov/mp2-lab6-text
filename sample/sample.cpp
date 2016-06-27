@@ -1,4 +1,4 @@
-#include "TText.h"
+﻿#include "TText.h"
 #include <clocale>
 #include <string>
 #include <iostream>

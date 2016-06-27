@@ -1,4 +1,4 @@
-#include "TLink.h"
+﻿#include "TLink.h"
 
 TLink::TLink(const char *s, TLink *pN, TLink *pD):pNext(pN),pDown(pD)
 {
@@ -50,6 +50,7 @@ void TLink::MemCleaner(TText &txt, int &count)
 		txt.SetLine(s.c_str());
 	}
 	s = "$$$";
+	s += txt.GetLine();
 	txt.SetLine(s.c_str());
 	// маркировка списка свободных звеньев
 	for (TLink *tmp = MemHeader.pFree;tmp != NULL;tmp = tmp->pNext)

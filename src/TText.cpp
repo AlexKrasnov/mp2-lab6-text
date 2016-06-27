@@ -1,4 +1,4 @@
-#include "TText.h"
+﻿#include "TText.h"
 
 TText::TText(TLink *p): path(100)
 {

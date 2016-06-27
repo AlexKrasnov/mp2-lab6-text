@@ -1,4 +1,4 @@
-﻿#include "TText.h"
+#include "TText.h"
 
 TText::TText(TLink *p): path(100)
 {
@@ -8,6 +8,11 @@ TText::TText(TLink *p): path(100)
 		pFirst=tmp;
 	}
 	else pFirst=p;
+}
+
+TText::~TText()
+{
+	pFirst = NULL;
 }
 
 void TText::GoFirstLink()
@@ -148,42 +153,32 @@ void TText::SetLine(string _str)
 		strcpy(pCurr->str,s.c_str());
 }
 
-int TText :: Reset()
+void TText::Reset()
 {
-	while (!St.empty())
-		St.pop();
-	pCurr = pFirst;
-	if (pCurr != NULL)
+	path.Clear();
+	pCurr=pFirst;
+	if(pCurr!=NULL)
 	{
-		St.push(pCurr);
-		if (pCurr->pNext != NULL)
-			St.push(pCurr->pNext);
-		if (pCurr->pDown != NULL)
-			St.push(pCurr->pDown);
+		if(pCurr->pNext!=NULL)
+			path.push(pCurr->pNext);
+		if(pCurr->pDown!=NULL)
+			path.push(pCurr->pDown);
 	}
-	return IsTextEnded();
 }
 
-int TText :: IsTextEnded(void) const
+void TText::GoNext()
 {
-	return !St.empty();
+	if(!path.empty())
+	{
+		pCurr=path.pop();
+		if(pCurr->pNext!=NULL)
+			path.push(pCurr->pNext);
+		if(pCurr->pDown!=NULL)
+			path.push(pCurr->pDown);
+	}
 }
 
-int TText :: GoNext(void)
-{
-	if (!IsTextEnded())
-	{
-		pCurr = St.pop();
-		if (pCurr!=pFirst)
-		{
-			if (pCurr->pNext != NULL)
-				St.push(pCurr->pNext);
-			if (pCurr->pDown != NULL)
-				St.push(pCurr->pDown);
-		}
-	}
-	return IsTextEnded();
-}
+int TText::IsTextEnded() const {return path.empty();}
 
 TLink* TText::ReadSection(ifstream& ifs)
 {

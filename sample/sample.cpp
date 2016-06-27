@@ -1,4 +1,4 @@
-﻿#include "TText.h"
+#include "TText.h"
 #include <clocale>
 #include <string>
 #include <iostream>
@@ -125,7 +125,7 @@ void main()
 				break;
 
 			case 14: int k;
-				TLink::MemClean(t, k); 
+				TLink::MemCleaner(t, k); 
 				cout << "Удалено " << '('<< k << ')' << endl;
 				break;
 

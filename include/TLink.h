@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #define _CRT_SECURE_NO_WARNINGS
 #define MaxLen 255
@@ -29,7 +29,7 @@ public:
 	static void InitMem(int size);       // инициализация памяти 
 	void* operator new(size_t size);     // выделение звена
 	void operator delete(void *p);       // освобождение звена
-	static void MemClean(TText &txt, int &count);    // "сборщик мусора"
+	static void MemCleaner(TText &txt, int &count);    // "сборщик мусора"
 	static void PrintFree();             // печать свободных звеньев
 	int isAtom();                        // проверка атомарности элемента
 };

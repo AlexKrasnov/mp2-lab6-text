@@ -1,4 +1,4 @@
-﻿#include "TLink.h"
+#include "TLink.h"
 
 TLink::TLink(const char *s, TLink *pN, TLink *pD):pNext(pN),pDown(pD)
 {
@@ -39,37 +39,33 @@ void TLink::operator delete(void* p)
 	MemHeader.pFree = tmp;
 }
 
-void TLink::MemClean(TText &txt, int &count)
+void TLink::MemCleaner(TText &txt, int &count)
 {
 	count = 0;
 	string s = "$$$";
+	// маркировка строк текста - маркер "$$$"
 	for (txt.Reset(); !txt.IsTextEnded(); txt.GoNext())
 	{
 		s += txt.GetLine();
 		txt.SetLine(s.c_str());
 	}
+	s = "$$$";
 	txt.SetLine(s.c_str());
-	TLink *tmp = MemHeader.pFree;
-	while (tmp != NULL)
+	// маркировка списка свободных звеньев
+	for (TLink *tmp = MemHeader.pFree;tmp != NULL;tmp = tmp->pNext)
 	{
-		for (int i = 0; i < 3; i++)
-			tmp->str[i] = '$';
-		tmp->str[3] = '\0';
-		tmp = tmp->pNext;
+		strcpy(tmp->str, "$$$");
 	}
-	tmp = MemHeader.pFirst;
-	while (true)
+	// сборка мусора
+	for (TLink *tmp = MemHeader.pFirst; tmp <= MemHeader.pLast; tmp++)
 	{
-		if ((tmp->str[0] == '$') && (tmp->str[1] == '$') && (tmp->str[2] == '$'))
-			strcpy(tmp->str, tmp->str + 3);
+		if (strstr(tmp->str, "$$$")!=NULL)   // строка текста или свободное звено
+			strcpy(tmp->str, tmp->str + 3);  // снятие маркировки
 		else
 		{
-			delete tmp;
+			delete tmp; // "неучтенное" звено в список свободных
 			count++;
 		}
-		if (tmp == MemHeader.pLast)
-			break;
-		tmp = tmp + 1;
 	}
 }
 
